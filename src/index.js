@@ -1,45 +1,97 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./styles.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styles.css';
 
-const EMPTY = "EMPTY";
-const CIRCLE = "CIRCLE";
-const CROSS = "CROSS";
+const EMPTY = 'EMPTY';
+const CIRCLE = 'CIRCLE';
+const CROSS = 'CROSS';
 
 function TicTacToe() {
-	const player = "";
-	const positions = [
-		EMPTY,
-		EMPTY,
-		CIRCLE,
-		EMPTY,
-		CROSS,
-		EMPTY,
-		EMPTY,
-		CIRCLE,
-		EMPTY
-	];
+	const [state, setState] = React.useState({
+		player: CIRCLE,
+		positions: [
+			EMPTY,
+			EMPTY,
+			EMPTY,
+			EMPTY,
+			EMPTY,
+			EMPTY,
+			EMPTY,
+			EMPTY,
+			EMPTY
+		]
+	});
+
+	function takeTurn(position) {
+		const positions = [...state.positions];
+		positions[position] = state.player;
+
+		setState({
+			player: state.player === CIRCLE ? CROSS : CIRCLE,
+			positions
+		});
+	}
 
 	return (
 		<div className="grid">
-			<Square position={0} value={positions[0]} />
-			<Square position={1} value={positions[1]} />
-			<Square position={2} value={positions[2]} />
-			<Square position={3} value={positions[3]} />
-			<Square position={4} value={positions[4]} />
-			<Square position={5} value={positions[5]} />
-			<Square position={6} value={positions[6]} />
-			<Square position={7} value={positions[7]} />
-			<Square position={8} value={positions[8]} />
+			<Square
+				position={0}
+				value={state.positions[0]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={1}
+				value={state.positions[1]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={2}
+				value={state.positions[2]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={3}
+				value={state.positions[3]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={4}
+				value={state.positions[4]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={5}
+				value={state.positions[5]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={6}
+				value={state.positions[6]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={7}
+				value={state.positions[7]}
+				takeTurn={takeTurn}
+			/>
+			<Square
+				position={8}
+				value={state.positions[8]}
+				takeTurn={takeTurn}
+			/>
 		</div>
 	);
 }
 
-function Square({ position, value }) {
+function Square({ position, value, takeTurn }) {
+	function handleClick() {
+		if (value === EMPTY) takeTurn(position);
+	}
+
 	return (
-		<div className="square">
-			{value == CIRCLE && <Circle />}
-			{value == CROSS && <Cross />}
+		<div className="square" onClick={handleClick}>
+			{value === CIRCLE && <Circle />}
+			{value === CROSS && <Cross />}
 		</div>
 	);
 }
@@ -51,7 +103,7 @@ function Circle() {
 				width="100"
 				height="100"
 				viewBox="-50 -50 100 100"
-				class="circle"
+				className="circle"
 			>
 				<circle cx="0" cy="0" r="40" />
 			</svg>
@@ -66,7 +118,7 @@ function Cross() {
 				width="100"
 				height="100"
 				viewBox="-50 -50 100 100"
-				class="cross"
+				className="cross"
 			>
 				<line x1="-40" y1="-40" x2="40" y2="40" />
 				<line x1="-40" y1="40" x2="40" y2="-40" />
@@ -79,4 +131,4 @@ function Result() {
 	return <div>Result</div>;
 }
 
-ReactDOM.render(<TicTacToe />, document.getElementById("app"));
+ReactDOM.render(<TicTacToe />, document.getElementById('app'));
