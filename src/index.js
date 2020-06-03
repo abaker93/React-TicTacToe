@@ -13,7 +13,7 @@ function TicTacToe() {
 			<Square position={5} />
 			<Square position={6} />
 			<Square position={7} />
-			<Square position={8} />
+			<Square position={0} />
 		</div>
 	);
 }
