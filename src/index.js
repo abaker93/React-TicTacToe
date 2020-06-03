@@ -13,13 +13,13 @@ function TicTacToe() {
 			<Square position={5} />
 			<Square position={6} />
 			<Square position={7} />
-			<Square position={0} />
+			<Square position={8} />
 		</div>
 	);
 }
 
-function Square() {
-	return <div className="square">Square</div>;
+function Square({ position }) {
+	return <div className="square">{position}</div>;
 }
 
 function Circle() {
